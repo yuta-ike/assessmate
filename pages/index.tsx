@@ -25,7 +25,7 @@ const Index = () => {
     const imageUrl = await firebase.storage().ref(`docimage/${imageId}`).getDownloadURL()
 
     // 画像を処理する
-    const res = await axios.post("/api/upload", { imageId, imageUrl }, {
+    const res = await axios.post("https://assessmate.herokuapp.com/analyze", { imageId, imageUrl, userId: appUser.userId }, {
       headers: {
         Authorization: `Bearer ${appUser.idToken}`,
       }
