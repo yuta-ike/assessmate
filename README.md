@@ -1,3 +1,15 @@
+- 単語帳自動生成
+  - 自動生成（難易度を調整して自動生成）
+  - 手動生成（自分で使用する単語を決定）訳語の修正も可能
+- 単語帳（文章版）生成
+- 単語穴埋め生成
+- 単語帳シェア機能
+- 他の人の正答率がわかる機能
+
+- 単語帳の音声
+
+- 文章の自動読み上げ
+
 # Example: Firebase authentication with a serverless API
 
 This example includes Firebase authentication and serverless [API routes](https://nextjs.org/docs/api-routes/introduction).
