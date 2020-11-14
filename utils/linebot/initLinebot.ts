@@ -7,4 +7,4 @@ const config = {
 const client = new Client(config);
 export default client
 
-export const middleware = lineMiddleware(config)
+export const linebotMiddleware = lineMiddleware(config)
