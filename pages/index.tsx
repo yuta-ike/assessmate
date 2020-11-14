@@ -19,9 +19,9 @@ const Index = () => {
     if(image == null) return
     
     const imageId = uuid()
-    await firebase.storage().ref().child(`/docimage/${imageId}`).put(image)
+    await firebase.storage().ref().child(`docimage/${imageId}`).put(image)
     
-    const imageUrl = await firebase.storage().ref().child(`/docimage/${imageId}`).getDownloadURL()
+    const imageUrl = await firebase.storage().ref().child(`docimage/${imageId}`).getDownloadURL()
 
     // 画像を処理する
     const res = await axios.post("/api/upload", { imageId, imageUrl }, {
