@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/react'
+import React from 'react'
 import { headerStyle } from './wordCard.style'
 import classNames from 'classnames'
 

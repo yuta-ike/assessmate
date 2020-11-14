@@ -1,8 +1,4 @@
 {
-  "types": [
-    "node",
-    "@emotion/core"
-  ],
   "compilerOptions": {
     "target": "es5",
     "lib": [

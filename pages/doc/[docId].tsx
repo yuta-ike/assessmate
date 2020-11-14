@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react'
 import { GetServerSideProps } from 'next'
 import React, { useState } from 'react'
 import * as admin from 'firebase-admin'
 import AnalyzedDocument, { Token } from '../../types/analyzedDocument'
 import { useAuthRoute } from '../../utils/auth/routes'
 import initAdminFirebase from '../../utils/auth/initAdminFirebase'
-import { rootStyle, sentenceStyle, fabButtonStyle, translatedStyle, bottomBarStyle } from './doc.style'
+import { rootStyle, sentenceStyle, fabButtonStyle, translatedStyle, bottomBarStyle } from '../../components/page_style/doc.style'
 import TokenComponent from '../../components/atom/TokenComponent/TokenComponent'
 import { MdColorLens } from 'react-icons/md'
 import WordCardDialog from '../../components/dialog/WordCardDialog'

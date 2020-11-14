@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react'
 import React from 'react'
 import { ExToken } from '../../../pages/doc/[docId]'
 import { subStyle, baseWordStyle, colorWordStyle } from './tokenComponent.style'

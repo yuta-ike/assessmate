@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react'
 import React, { useReducer, useState } from "react"
 import Modal from 'react-modal'
 import SwipeableViews from "react-swipeable-views"

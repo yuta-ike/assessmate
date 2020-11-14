@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react'
 import Link from 'next/link'
 import { useUser } from '../utils/auth/useUser'
 import { useAuthRoute } from '../utils/auth/routes'
