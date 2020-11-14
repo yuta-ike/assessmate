@@ -67,7 +67,7 @@ const analyzeText = async (imageId: string, imageUrl: string) => {
   
   const translatedWords = await Promise.all(promises)
 
-  await admin.firestore().collection("docs").doc(imageId).update({
+  await admin.firestore().collection("docs").doc(imageId).set({
     isFinished: true,
     text: {
       rowText: text,
@@ -75,7 +75,7 @@ const analyzeText = async (imageId: string, imageUrl: string) => {
       sentences: translated.result.translations.map(({translation}, i) => ({id: i, translated: translation, original: res.result.syntax.sentences[i]})),
       translatedWords: translatedWords,
     }
-  })
+  }, { merge: true })
 }
 
 export default analyzeText
