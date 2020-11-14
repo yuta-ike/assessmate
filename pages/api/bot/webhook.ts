@@ -1,4 +1,4 @@
-import { middleware, validateSignature } from "@line/bot-sdk"
+import { middleware } from "@line/bot-sdk"
 import { NextApiRequest, NextApiResponse } from "next"
 import client from "../../../utils/linebot/initLinebot"
 import runMiddleware from "../../../utils/router/runMiddleware"
