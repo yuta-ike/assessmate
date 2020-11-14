@@ -10,6 +10,8 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
     const imageId = req.body.imageId
     const imageUrl = req.body.imageUrl
 
+    console.log(imageId)
+
     await Promise.all([
       // Firestoreにドキュメントを追加
       admin.firestore().collection("docs").doc(imageId).set({
