@@ -12,7 +12,7 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await Promise.all([
       // Firestoreにドキュメントを追加
-      admin.firestore().collection("docs").add({
+      admin.firestore().collection("docs").doc(imageId).set({
         createdBy: userId,
         isFinished: false,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
