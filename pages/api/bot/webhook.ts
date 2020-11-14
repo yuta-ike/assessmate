@@ -4,7 +4,7 @@ import runMiddleware from "../../../utils/router/runMiddleware"
 
 const webhook = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("PHASE1")
-  await runMiddleware(req, res, linebotMiddleware)
+  // await runMiddleware(req, res, linebotMiddleware)
   // const signature = req.headers["X-Line-Signature"].toString()
   // validateSignature(req.body, process.env.LINE_BOT_CHANNEL_SECRET, signature)
   console.log("PHASE2")
