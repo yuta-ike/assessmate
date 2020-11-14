@@ -22,7 +22,9 @@ const upload = async (req: NextApiRequest, res: NextApiResponse) => {
       }),
     ])
 
-    axios.post("https://assessmate.herokuapp.com/analyze", { imageId, imageUrl })
+    console.log("POST ANALYZE API")
+    axios.post("https://assessmate.herokuapp.com/analyze", { imageId, imageUrl }).then(console.log)
+    console.log("FIN ANALYZE API")
 
     return res.status(200).json({
       doc_id: imageId
