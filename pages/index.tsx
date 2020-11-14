@@ -6,6 +6,8 @@ import { useAuthRoute } from '../utils/auth/routes'
 import { useState } from 'react'
 import axios from 'axios'
 import formData from '../utils/formData'
+import firebase from 'firebase'
+import { v4 as uuid } from 'uuid'
 
 const Index = () => {
   useAuthRoute()
@@ -15,16 +17,21 @@ const Index = () => {
 
   const handleSubmit = async () => {
     if(image == null) return
+    
+    const imageId = uuid()
+    await firebase.storage().ref().child(`/docimage/${imageId}`).put(image)
+    
+    const imageUrl = await firebase.storage().ref().child(`/docimage/${imageId}`).getDownloadURL()
 
-    // 画像をアップロードする
-    const res = await axios.post("/api/upload", formData({ image }), {
+    // 画像を処理する
+    const res = await axios.post("/api/upload", { imageId, imageUrl }, {
       headers: {
         Authorization: `Bearer ${appUser.idToken}`,
       }
     })
     console.log(res.data.doc_id)
   }
-
+ 
   return (
     <>
       <p>Hi there!</p>
