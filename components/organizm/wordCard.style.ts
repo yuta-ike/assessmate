@@ -19,6 +19,7 @@ export const headerStyle = css`
     border: 1px solid gray;
     padding: 0 1em;
     margin-bottom: 1rem;
+    font-family: 'M PLUS Rounded 1c';
   }
 
   & > .text {

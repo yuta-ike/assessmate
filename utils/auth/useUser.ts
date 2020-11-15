@@ -54,13 +54,6 @@ const useUser = () => {
             pictureUrl: liffProfile.picture,
           })
 
-          console.log("SET APPUSER", {
-            userId: user.uid,
-            idToken,
-            displayName: encodedDisplayName,
-            pictureUrl: liffProfile.picture,
-          })
-
           
           if (encodedDisplayName !== fbProfile.displayName || liffProfile.picture !== fbProfile.pictureUrl){
             await firebase.firestore().collection("users").doc("line-" + user.uid).update({

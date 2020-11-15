@@ -8,7 +8,6 @@ export const useAuthRoute = () => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log("AUTH ROUTE", appUser)
     if (process.browser && appUser == null) {
       router.replace("/login")
     }
@@ -20,7 +19,6 @@ export const useUnAuthRoute = () => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log("UNAUTH ROUTE", appUser)
     if (process.browser && appUser != null) {
       router.push("/")
     }
