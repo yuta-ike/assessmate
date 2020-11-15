@@ -11,7 +11,7 @@ import getLiff from '../utils/liff/getLiff'
 import { useUnAuthRoute } from '../utils/auth/routes'
 
 const Auth = () => {
-  useUnAuthRoute()
+  // useUnAuthRoute()
   useUser()
 
   const appUser = useRecoilValue(appUserAtom)
