@@ -26,6 +26,8 @@ const useUser = () => {
       .onIdTokenChanged(async (user) => {
         if(!process.browser) return
         
+        console.log(user)
+        
         if (user) {
           const snapshot = await firebase.firestore().collection("users").doc("line-" + user.uid).get()
           const fbProfile = snapshot.data()
