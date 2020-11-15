@@ -32,7 +32,7 @@ const DocumentPage: React.FC<Props> = ({ text: jsonText = "", isAnalyzing, docId
   const [doc, setDoc] = useState<AnalyzedDocument>(() => isAnalyzing ? {} : JSON.parse(jsonText))
 
   const [wordCardOpen, setWordCardOpen] = useState(false)
-  const [simpleMode, setSimpleMode] = useState(false)
+  const [simpleMode, setSimpleMode] = useState(true)
 
   useEffect(() => {
     if (isAnalyzing) {

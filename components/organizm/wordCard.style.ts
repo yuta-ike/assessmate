@@ -35,6 +35,7 @@ export const headerStyle = css`
     font-size: 25px;
     margin-bottom: 1rem;
     color: #ff7526;
+    font-family: 'M PLUS Rounded 1c';
   }
 
   & > .sentence {
@@ -53,5 +54,6 @@ export const headerStyle = css`
     width: 90vw;
     color: gray;
     font-size: 0.8rem;
+    font-family: 'M PLUS Rounded 1c';
   }
 `
