@@ -37,7 +37,7 @@ const WordCardDialog: React.FC<Props> = ({ doc, isOpen, handleClose }) => {
 
   const highlightedSampleText = (word: TranslatedWord) => {
     const frags = sentences[word.token.sentenceId].original.text.split(word.token.text)
-    return frags.reduce((acc, c, i) => [...acc, c, <span id={i} className="target">{word.token.text}</span>], []).slice(0, -1)
+    return frags.reduce((acc, c, i) => [...acc, c, <span key={i} className="target">{word.token.text}</span>], []).slice(0, -1)
   }
 
 
