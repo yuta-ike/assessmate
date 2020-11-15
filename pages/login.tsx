@@ -12,6 +12,7 @@ import { useUnAuthRoute } from '../utils/auth/routes'
 
 const Auth = () => {
   useUnAuthRoute()
+  useUser()
 
   const appUser = useRecoilValue(appUserAtom)
 
