@@ -3,57 +3,24 @@ import { jsx } from '@emotion/react'
 import React, { useReducer, useState } from "react"
 import Modal from 'react-modal'
 import SwipeableViews from "react-swipeable-views"
-import AnalyzedDocument, { TranslatedWord } from "../../types/analyzedDocument"
-import PartOfSpeech, { translatePoS } from "../../types/partOfSpeech"
-import WordCard from "../organizm/WordCard"
-import { finalCardStyle, mainAreaStyle, operationAreaStyle, toolBarStyle } from "./wordCardDialog.style"
+import AnalyzedDocument, { TranslatedWord } from "../../../types/analyzedDocument"
+import PartOfSpeech, { translatePoS } from "../../../types/partOfSpeech"
+import WordCard from "../../organizm/WordCard"
+import { buttonStyle, mainAreaStyle, uploadButtonStyle } from "./fireUploadDialog"
 import { HiTrash } from 'react-icons/hi'
 import { AiFillEdit, AiTwotoneSound } from 'react-icons/ai'
 import classNames from "classnames"
+import { HiPhotograph } from 'react-icons/hi'
 
 type Props = {
-  doc: AnalyzedDocument
   isOpen: boolean
   handleClose: () => void
+  setImage: (file: File) => void
+  handleSubmit: () => void
+  image: File
 }
 
-const WordCardDialog: React.FC<Props> = ({ doc, isOpen, handleClose }) => {
-  const words = doc.translatedWords
-  const sentences = doc.sentences
-  
-  const [index, setIndex] = useState(0)
-  const [cardState, toggleCard] = useReducer((arr: boolean[], i: number) => {
-    arr[i] = !arr[i]
-    return [...arr]
-  }, Array(words.length).fill(false))
-
-  console.log(index)
-
-  const handleBack = () => {
-    if(index > 0) setIndex(index - 1)
-  }
-
-  const handleNext = () => {
-    if(index < words.length) setIndex(index + 1)
-  }
-
-  const highlightedSampleText = (word: TranslatedWord) => {
-    const frags = sentences[word.token.sentenceId].original.text.split(word.token.text)
-    return frags.reduce((acc, c) => [...acc, c, <span className="target">{word.token.text}</span>], []).slice(0, -1)
-  }
-
-
-  const [isReading, setIsReading] = useState(false)
-  const handleReading = () => {
-    if(isReading) return
-    const speech = new SpeechSynthesisUtterance(words[index].token.text)
-    speech.lang = 'en-US'
-    speech.addEventListener("end", () => setIsReading(false))
-    setIsReading(true)
-    speechSynthesis.speak(speech)
-  }
-
-
+const FileUploadDialog: React.FC<Props> = ({ isOpen, handleClose, setImage, handleSubmit, image }) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -80,7 +47,16 @@ const WordCardDialog: React.FC<Props> = ({ doc, isOpen, handleClose }) => {
     >
       <>
         <div css={mainAreaStyle}>
-          <SwipeableViews index={index} onChangeIndex={setIndex} enableMouseEvents style={{height: "100%"}} containerStyle={{height: "100%"}}>
+          <div css={uploadButtonStyle}>
+            <label htmlFor="file-upload">
+              <HiPhotograph/> {image?.name ?? "写真を選択"}
+              <input type="file" id="file-upload" onChange={e => setImage(e.target.files[0])} style={{display: "none"}}/>
+            </label>
+          </div>
+          <div css={buttonStyle}>
+            <div className={classNames("button", image == null && "disabled")} onClick={handleSubmit} role="button">送信</div>
+          </div>
+          {/* <SwipeableViews index={index} onChangeIndex={setIndex} enableMouseEvents style={{height: "100%"}} containerStyle={{height: "100%"}}>
             {
               words.map((word, i) => (
                 <WordCard
@@ -114,6 +90,7 @@ const WordCardDialog: React.FC<Props> = ({ doc, isOpen, handleClose }) => {
           <div className="trash" role="button"><HiTrash /></div>
           <div className={classNames("speaker", isReading && "disabled")} onClick={handleReading} role="button" aria-disabled={isReading}><AiTwotoneSound /></div>
           <div className="edit" role="button"><AiFillEdit /></div>
+        </div> */}
         </div>
       </>
     </Modal>
@@ -121,4 +98,4 @@ const WordCardDialog: React.FC<Props> = ({ doc, isOpen, handleClose }) => {
 }
 
 
-export default WordCardDialog
+export default FileUploadDialog

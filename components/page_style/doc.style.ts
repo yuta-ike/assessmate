@@ -5,6 +5,7 @@ export const rootStyle = css`
 `
 
 export const sentenceStyle = css`
+  font-family: 'Merriweather';
   background: #f6f6f6;
   border-radius: 1em;
   padding: 1em .5em;
@@ -21,8 +22,6 @@ export const fabButtonStyle = css`
   height: 50px;
   background: white;
   font-size: 30px;
-  /* line-height: 50px;
-  text-align: center; */
 
   display: flex;
   flex-direction: column;
@@ -33,19 +32,4 @@ export const fabButtonStyle = css`
 
 export const translatedStyle = css`
   font-size: 0.8rem;
-`
-
-export const bottomBarStyle = css`
-  width: calc(100vw - 2rem);
-  position: fixed;
-  left: 1rem;
-  bottom: 20px;
-  background: #ffffffee;
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
-  display: inline;
-  vertical-align: middle;
-  border-radius: 1rem;
-  box-shadow: 0 0 4px 2px #d9d9d9;
 `

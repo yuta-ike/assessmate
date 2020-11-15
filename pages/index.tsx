@@ -3,15 +3,34 @@ import { jsx } from '@emotion/react'
 import Link from 'next/link'
 import { useUser } from '../utils/auth/useUser'
 import { useAuthRoute } from '../utils/auth/routes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import formData from '../utils/formData'
 import firebase from 'firebase'
 import { v4 as uuid } from 'uuid'
+import { documentItemEmptyStyle, documentItemStyle, keywordStyle } from '../components/page_style/index.style'
+import { useRouter } from 'next/dist/client/router'
+import FabText from '../components/atom/Fab/FabText'
+import { FaPlus } from 'react-icons/fa'
+import FileUploadDialog from '../components/dialog/FileUpload/FileUploadDialog'
+import upload from './api/upload'
 
-const Index = () => {
+const Index: React.FC = () => {
   useAuthRoute()
   const { appUser } = useUser()
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+  const [documents, setDocuments] = useState([])
+  const [uploadDialogOpen, setUploadDialogOpen] = useState(false)
+
+  useEffect(() => {
+    (async () => {
+      const snapshots = await firebase.firestore().collection("docs").where("createdBy", "==", appUser.userId).where("isFinished", "==", true).orderBy("updatedAt", "desc").get()
+      const documents = snapshots.docs.map((snapshot) => ({content: snapshot.data(), id: snapshot.id}))
+      setDocuments(documents)
+      setIsLoading(false)
+    })()
+  }, [])
+
 
   const [image, setImage] = useState<File>(null)
 
@@ -20,21 +39,52 @@ const Index = () => {
     
     const imageId = uuid()
     await firebase.storage().ref().child(`docimage/${imageId}`).put(image)
-    console.log(imageId)
     
     const imageUrl = await firebase.storage().ref(`docimage/${imageId}`).getDownloadURL()
 
     // 画像を処理する
-    const res = await axios.post("https://assessmate.herokuapp.com/analyze", { imageId, imageUrl, userId: appUser.userId }, {
+    await axios.post("https://assessmate.herokuapp.com/analyze", { imageId, imageUrl, userId: appUser.userId }, {
       headers: {
         Authorization: `Bearer ${appUser.idToken}`,
       }
-    })
-    console.log(res.data.doc_id)
+    }).catch(console.log)
+
+    router.push(`/doc/${imageId}`)
   }
+
+  const handleShowDetail = (docId: string) => router.push(`/doc/${docId}`)
  
   return (
     <>
+      <div>アップロード文章一覧</div>
+      <div role="list">
+        {
+          isLoading && (
+            <>
+            <div role="listitem" css={documentItemEmptyStyle}/>
+            <div role="listitem" css={documentItemEmptyStyle}/>
+            <div role="listitem" css={documentItemEmptyStyle}/>
+            <div role="listitem" css={documentItemEmptyStyle}/>
+            <div role="listitem" css={documentItemEmptyStyle}/>
+            <div role="listitem" css={documentItemEmptyStyle}/>
+            </>
+          )
+        }
+        {
+          documents.map((document) => (
+            <div role="listitem" css={documentItemStyle} onClick={() => handleShowDetail(document.id)}>
+              <p>{document.content.text.rowText}</p>
+              {document.content.keywords != null && <div css={keywordStyle}>{document.content.keywords.map((keyword, i) => <span key={i} className="keyword">{keyword}</span>)}</div>}
+            </div>
+          ))
+        }
+      </div>
+      <FabText onClick={() => setUploadDialogOpen(true)}>
+        <FaPlus /> 文書をアップロードする
+      </FabText>
+      <FileUploadDialog isOpen={uploadDialogOpen} handleClose={() => setUploadDialogOpen(false)} setImage={setImage} handleSubmit={handleSubmit} image={image}/>
+
+
       <p>Hi there!</p>
       <button onClick={async () => await axios.get(`https://script.google.com/macros/s/AKfycbxV7vAp2WIJ3VGmSzA0O096_KI0btIAPKKa0zIy_liCIa46d9Y2/exec`, {
         params: { text: "Apple", source: "en", target: "ja" }
@@ -48,7 +98,6 @@ const Index = () => {
         )
       }
       <p>
-        You are not signed in.{' '}
         <Link href={'/login'}>
           <a>Sign in</a>
         </Link>
