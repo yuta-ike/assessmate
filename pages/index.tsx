@@ -12,24 +12,25 @@ import { useRouter } from 'next/dist/client/router'
 import FabText from '../components/atom/Fab/FabText'
 import { FaPlus } from 'react-icons/fa'
 import FileUploadDialog from '../components/dialog/FileUpload/FileUploadDialog'
-import upload from './api/upload'
 
 const Index: React.FC = () => {
-  useAuthRoute()
   const { appUser } = useUser()
+  useAuthRoute()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
   const [documents, setDocuments] = useState([])
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false)
-
+  
   useEffect(() => {
     (async () => {
-      const snapshots = await firebase.firestore().collection("docs").where("createdBy", "==", appUser.userId).where("isFinished", "==", true).orderBy("updatedAt", "desc").get()
-      const documents = snapshots.docs.map((snapshot) => ({content: snapshot.data(), id: snapshot.id}))
-      setDocuments(documents)
-      setIsLoading(false)
+      if(appUser != null){
+        const snapshots = await firebase.firestore().collection("docs").where("createdBy", "==", appUser.userId).where("isFinished", "==", true).orderBy("updatedAt", "desc").get()
+        const documents = snapshots.docs.map((snapshot) => ({content: snapshot.data(), id: snapshot.id}))
+        setDocuments(documents)
+        setIsLoading(false)
+      }
     })()
-  }, [])
+  }, [appUser])
 
 
   const [image, setImage] = useState<File>(null)

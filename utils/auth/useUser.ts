@@ -26,6 +26,8 @@ const useUser = () => {
       .onIdTokenChanged(async (user) => {
         if(!process.browser) return
         
+        console.log("TOKEN CHANGED", user)
+
         if (user) {
           const snapshot = await firebase.firestore().collection("users").doc("line-" + user.uid).get()
           const fbProfile = snapshot.data()
@@ -51,6 +53,14 @@ const useUser = () => {
             displayName: encodedDisplayName,
             pictureUrl: liffProfile.picture,
           })
+
+          console.log("SET APPUSER", {
+            userId: user.uid,
+            idToken,
+            displayName: encodedDisplayName,
+            pictureUrl: liffProfile.picture,
+          })
+
           
           if (encodedDisplayName !== fbProfile.displayName || liffProfile.picture !== fbProfile.pictureUrl){
             await firebase.firestore().collection("users").doc("line-" + user.uid).update({

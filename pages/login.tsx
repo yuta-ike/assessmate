@@ -9,12 +9,14 @@ import initFirebase from '../utils/auth/initFirebase'
 import { useUser } from '../utils/auth/useUser'
 import getLiff from '../utils/liff/getLiff'
 import { useUnAuthRoute } from '../utils/auth/routes'
+import { useRouter } from 'next/dist/client/router'
 
 const Auth = () => {
-  // useUnAuthRoute()
+  useUnAuthRoute()
   useUser()
 
   const appUser = useRecoilValue(appUserAtom)
+  const router = useRouter()
 
   useEffect(() => {
     if (process.browser && appUser == null){
@@ -36,8 +38,11 @@ const Auth = () => {
         const token = res.data.token
 
         initFirebase()
-        await firebase.auth().signInWithCustomToken(token)
+        const credential = await firebase.auth().signInWithCustomToken(token)
+        console.log("LOGIN FIN")
       })()
+    }else{
+      router.push("/")
     }
   }, [])
 
