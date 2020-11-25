@@ -1,49 +1,48 @@
-- 単語帳自動生成
-  - 自動生成（難易度を調整して自動生成）
-  - 手動生成（自分で使用する単語を決定）訳語の修正も可能
-- 単語帳（文章版）生成
-- 単語穴埋め生成
-- 単語帳シェア機能
-- 他の人の正答率がわかる機能
+# 概要
+🎉🎉 最優秀賞をいただくことができました！！！！！
 
-- 単語帳の音声
+[サポーターズ ウインターハッカソン](https://talent.supporterz.jp/events/844bffbc-c15f-4b1f-b787-b124557d1d0a/)で作成したプロダクト
 
-- 文章の自動読み上げ
 
-# Example: Firebase authentication with a serverless API
+## ASESSMATE
+### コンセプト
+「自習 × TECH」
 
-This example includes Firebase authentication and serverless [API routes](https://nextjs.org/docs/api-routes/introduction).
+中高生をターゲットにした、英語学習支援&共有サービス。LINE Botに教科書本文の写真を送ると、自動で教材を生成してくれます。生成した教材を友達とシェアし、共同ノートとしてコメントやアドバイスなどを書き合うことができます。
 
-## How to use
+### ターゲット
+テスト勉強をする中学生・高校生。
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
+### 解決する課題
+友達同士でのノートの見せ合いや教え合いを効率的に行いたい。現在ではノートを写真に撮って送るなどの方法しかなく効率的とは言えない。
 
-```bash
-npx create-next-app --example with-firebase-authentication with-firebase-authentication-app
-# or
-yarn create next-app --example with-firebase-authentication with-firebase-authentication-app
-```
+このサービスでは友達との共有を前提とした教材の「**ベース**」を生成し、友達間での教え合いに使うことができる。また、「テストに出そう！」「スペル注意！」などの知見を貯めることができる。
 
-## Configuration
+### 現時点で実装している機能（ハッカソン終了時点）
+- LINE Botに英文の画像を送ると、①品詞ごとにカラーリングしたテキスト、②センテンスごとの日本語訳、③文章中に含まれる単語を集めた単語帳（単語の品詞&日本語訳） を自動生成します。
+- 単語帳を使って勉強できます。単語帳には、①単語 ②単語の日本語訳 ③単語の品詞 **④その単語を含む教科書中の文章 ⑤④の日本語訳** が含まれます。また単語の音声再生機能もあります。
+- 教材を友達にシェアできます。シェアした友達同士で、①単語帳の単語 ②本文のセンテンス ごとにコメントのやりとりができます。例えば「この単語テストに出そう！」「スペルに注意！」や、「ここの文章構造難しい！」など、アドバイスや注意点を共有できます。友達と一緒にノートを作る感覚です。
 
-Set up Firebase:
+### 今後実装したい機能（構想）
+- LINE Botとのチャット画面上で単語テストを行う機能（現在はURLを踏んでWebアプリ上で行えるが、LINEのトーク画面でも行えるようにしたい）
+- 英語以外の教科にも対応したい
 
-- Create a project at the [Firebase console](https://console.firebase.google.com/).
-- Copy the contents of `.env.local.example` into a new file called `.env.local`
-- Get your account credentials from the Firebase console at _Project settings > Service accounts_, where you can click on _Generate new private key_ and download the credentials as a json file. It will contain keys such as `project_id`, `client_email` and `client_id`. Set them as environment variables in the `.env.local` file at the root of this project.
-- Get your authentication credentials from the Firebase console under _Project settings > General> Your apps_ Add a new web app if you don't already have one. Under _Firebase SDK snippet_ choose _Config_ to get the configuration as JSON. It will include keys like `apiKey`, `authDomain` and `databaseUrl`. Set the appropriate environment variables in the `.env.local` file at the root of this project.
-- Go to **Develop**, click on **Authentication** and in the **Sign-in method** tab enable authentication for the app.
+### 実装できなかったこと
+- 日本語訳・品詞分解の精度向上（現時点では間違いや不自然な部分が多く実用に耐えない）
+- 画像認識や日本語訳が間違っている場合の修正（現在は修正不可能）
+- 画像だけでなく英文を直接送る方法にも対応（現時点では画像を送って教材を生成する飲み）
+- 単語帳の単語の追加・削除・編集機能
+- LINEで繋がっている友達にのみ共有可能にする（現在はURLを知っている全員が教材にアクセス可能）
 
-Install it and run:
+### アピールポイント
 
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
+#### 中高生が間違いなく使っている（であろう）LINEをインタフェースとして採用
+現在でも友達同士での宿題の教え合いや見せ合いはLINE上で行われておりサービスとの相性が良い。加えて、LIFFを利用することでログイン操作不要で導入できるため、共有サービスでありがちな「友達が登録していないので使い道がない」現象を避けることができる。
+また、LINEの友達の繋がりはある程度クローズドであるため、
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## ハッカソン
+- 制作期間：4日間
+- 
 
-After deploying, copy the deployment URL and navigate to your Firebase project's Authentication tab. Scroll down in the page to "Authorized domains" and add that URL to the list.
+後ほど追記予定....
+
