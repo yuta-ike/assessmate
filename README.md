@@ -44,7 +44,21 @@
 
 ## ハッカソン
 - 制作期間：4日間
-- 
+- チーム：個人チーム
+
+## 使用技術
+|分野|使用技術|
+|:----:|:---|
+|フロント|Next.js + LIFF (TypeScript)|
+|認証|Firebase Auth + LINE Login|
+|APIサーバ|Express (Node.js/TypeScript)|
+|ホスティング|Vercel（フロント） Heroku（APIサーバ）|
+|OCR|tesseract.js|
+|構文解析|IBM Watson Natural Language Understanding API|
+|日本語訳|GAS + Google Transition API|
+|DB|Firestore|
+|ストレージ|Firebase Storage|
+
 
 後ほど追記予定....
 
